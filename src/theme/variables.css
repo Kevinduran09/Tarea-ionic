@@ -1,2 +1,20 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+@import "tailwindcss";
+
+ion-item {
+    --background: none;
+    /* Fondo oscuro */
+    --color: white;
+    /* Texto blanco */
+    --border-radius: 10px;
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
+    display: flex;
+    align-items: stretch;
+}
+ion-button {
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    margin-top: 1rem;
+}

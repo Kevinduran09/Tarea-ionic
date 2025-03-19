@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     legacy()
+    
   ],
   test: {
     globals: true,
