@@ -2,16 +2,18 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonChip, IonIcon, Io
 import { cartOutline } from 'ionicons/icons'
 import React from 'react'
 import { useCartStore } from '../store/useCartStore'
-interface ProductInterface {
+export interface ProductInterfaceProps {
     id: number,
     title: string,
     description: string,
     price: GLfloat,
     category: string,
     image: string,
+    index:number,
     onBuyClick: () => void
 }
-export const ProductCard: React.FC<ProductInterface> = ({ id, title, price, description, category, image, onBuyClick }) => {
+
+export const ProductCard: React.FC<ProductInterfaceProps> = ({ id, title, price, description, category, image,index, onBuyClick }) => {
     const {addCart} = useCartStore()
 
     function addProductCart(){
@@ -35,7 +37,7 @@ export const ProductCard: React.FC<ProductInterface> = ({ id, title, price, desc
                 <span className='bg-gray-600 text-white max-w-max px-4 py-2 rounded-lg text-sm mt-2 capitalize shadow-md'>{category}</span>
                 <p className='text-gray-700 mt-3 font-medium truncate-text'>{description}</p>
                 <div className='ml-auto'>
-                    <IonButton id='addcarttoast' size="small" onClick={addProductCart}>
+                    <IonButton id='addcarttoast' data-testid="add-cart-button" size="small" onClick={addProductCart}>
                         Agregar
                         <IonIcon slot="end" icon={cartOutline}></IonIcon>
                     </IonButton>

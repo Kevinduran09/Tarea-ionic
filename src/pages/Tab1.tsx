@@ -3,22 +3,16 @@ import { useHistory } from 'react-router-dom';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 import { useEffect, useState } from 'react';
-import { ProductCard } from '../components/ProductCard';
+import { ProductCard, ProductInterfaceProps } from '../components/ProductCard';
 import { waitFor } from '@testing-library/react';
 import { cartOutline } from 'ionicons/icons';
 import { useCartStore } from '../store/useCartStore';
-interface ProductInterface {
-  id: number,
-  title: string,
-  description: string,
-  price: GLfloat,
-  category: string,
-  image: string
-}
+import { ProductList } from '../components/ProductList';
+
 const Tab1: React.FC = () => {
   const history = useHistory();
-  const [products, setProducts] = useState<ProductInterface[]>([])
-  const [filterProducts, setfilterProducts] = useState<ProductInterface[]>([])
+  const [products, setProducts] = useState<Omit<ProductInterfaceProps, 'onBuyClick'>[]>([])
+  const [filterProducts, setfilterProducts] = useState<Omit<ProductInterfaceProps, 'onBuyClick'>[]>([])
   const [category, setCategory] = useState<string>('')
   const [showToast, setShowToast] = useState(false);
   const { quantity } = useCartStore()
@@ -60,7 +54,7 @@ const Tab1: React.FC = () => {
 
         console.log(typeof category);
 
-        const new_data = data.filter((prod: ProductInterface) => prod.category === category)
+        const new_data = data.filter((prod: Omit<ProductInterfaceProps, 'onBuyClick'>) => prod.category === category)
         console.log(new_data);
 
 
@@ -83,7 +77,7 @@ const Tab1: React.FC = () => {
     <IonPage>
       <IonHeader id='header' class='ion-text-center ion-no-border bg-red-500' translucent={true}>
       <IonToolbar class='ion-padding px-2' >
-        <IonTitle class='font-bold text-2xl'>Lista de productos</IonTitle>
+          <IonTitle class='font-bold text-2xl' data-testid='title-products-view'>Lista de productos</IonTitle>
         <IonButtons slot="end">
           <IonButton onClick={() => history.push('/cart')}>
           {quantity() > 0 && (
@@ -112,28 +106,7 @@ const Tab1: React.FC = () => {
           </IonRow>
           <IonRow>
             <IonCol>
-              <IonList class='flex flex-wrap  justify-center items-stretch'>
-                {
-                  filterProducts.map((item, index) => {
-                    return (
-                      <IonItem lines='none' key={index} >
-                        <ProductCard {...item} onBuyClick={handleBuyClick} />
-                      </IonItem>
-                    );
-                  })
-                }
-              </IonList>
-              <IonInfiniteScroll onIonInfinite={async (event) => {
-                await infinitySimulation()
-                setTimeout(() => event.target.complete(), 3000)
-              }}>
-                <div className="infinite-scroll-content">
-                  <IonSpinner name="circular"></IonSpinner>
-                  {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><linearGradient id="a8"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="1" stop-color="#FFFFFF"></stop></linearGradient><circle fill="none" stroke="url(#a8)" stroke-width="15" stroke-linecap="round" stroke-dasharray="0 44 0 44 0 44 0 44 0 360" cx="100" cy="100" r="70" transform-origin="center"><animateTransform type="rotate" attributeName="transform" calcMode="discrete" dur="2" values="360;324;288;252;216;180;144;108;72;36" repeatCount="indefinite"></animateTransform></circle></svg> */}
-
-                </div>
-
-              </IonInfiniteScroll>
+              <ProductList filterProducts={filterProducts} handleBuyClick={handleBuyClick} infinitySimulation={infinitySimulation}/>
             </IonCol>
           </IonRow>
         </IonGrid>
