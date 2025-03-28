@@ -11,10 +11,10 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
+
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
-import Cart from './pages/Cart';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -47,6 +47,8 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 import { Config, Explore, List } from './components/icons';
+import ProductsPage from './feature/Products/page/ProductsPage';
+import CartPage from './feature/Cart/page/CartPage';
 
 setupIonicReact();
 
@@ -55,8 +57,8 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs >
         <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
+          <Route exact path="/products">
+            <ProductsPage />
           </Route>
           <Route exact path="/tab2">
             <Tab2 />
@@ -65,17 +67,17 @@ const App: React.FC = () => (
             <Tab3 />
           </Route>
           <Route exact path="/cart">
-            <Cart />
+            <CartPage />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-           <List className='text-green-600 ' />
-         
-            <IonLabel>Lista</IonLabel>
+          <IonTabButton tab="tab1" href="/products">
+            <List className='text-green-600 ' />
+
+            <IonLabel>Productos</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
             <Explore className='text-green-600 ' />

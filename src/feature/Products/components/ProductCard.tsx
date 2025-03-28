@@ -1,7 +1,7 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonChip, IonIcon, IonImg } from '@ionic/react'
 import { cartOutline } from 'ionicons/icons'
 import React from 'react'
-import { useCartStore } from '../store/useCartStore'
+import { useCartStore } from '../../../store/useCartStore'
 export interface ProductInterfaceProps {
     id: number,
     title: string,
@@ -9,16 +9,16 @@ export interface ProductInterfaceProps {
     price: GLfloat,
     category: string,
     image: string,
-    index:number,
-    onBuyClick: () => void
+    index: number,
+
 }
 
-export const ProductCard: React.FC<ProductInterfaceProps> = ({ id, title, price, description, category, image,index, onBuyClick }) => {
-    const {addCart} = useCartStore()
+export const ProductCard: React.FC<ProductInterfaceProps> = ({ id, title, price, description, category, image, index }) => {
+    const { addCart } = useCartStore()
 
-    function addProductCart(){
-        addCart({id,title,price,description,category,image})
-        onBuyClick()
+    function addProductCart() {
+        addCart({ id, title, price, description, category, image })
+
     }
 
     return (
@@ -31,7 +31,7 @@ export const ProductCard: React.FC<ProductInterfaceProps> = ({ id, title, price,
                 }} src={image} alt={title} ></IonImg>
                 <span className='text-black mr-3 absolute text-2xl font-bold bottom-0 right-0 bg-green-500 rounded-md px-2'>${price}</span>
             </div>
-            <div className='border-t-2 border-separate mt-5 p-2 flex flex-col justify-end'>
+            <div className='border-t-2 border-separate mt-5 p-2 flex flex-col'>
                 <span className='text-black font-bold text-lg'>{title}</span>
 
                 <span className='bg-gray-600 text-white max-w-max px-4 py-2 rounded-lg text-sm mt-2 capitalize shadow-md'>{category}</span>
