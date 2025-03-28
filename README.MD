@@ -25,13 +25,87 @@ Se ha implementado un scroll infinito para la carga progresiva de productos. La 
 
 Se ha implementado un carrito de compras utilizando Zustand para el manejo del estado global. Los usuarios pueden agregar productos al carrito y ver la cantidad de productos en el carrito en la barra de navegación. También pueden acceder a una página dedicada al carrito de compras para ver los productos añadidos y eliminarlos si lo desean.
 
+
+
+### Arquitectura Modular
+
+El proyecto utiliza una arquitectura modular para organizar el código en diferentes carpetas dentro del directorio `src/features`. Cada carpeta representa una funcionalidad o módulo independiente de la aplicación. Esto permite mantener el código limpio, reutilizable y fácil de escalar. A continuación, se describen brevemente los módulos principales:
+
+
+Cada módulo tiene su propia estructura interna que incluye componentes, servicios, hooks y pruebas específicas para esa funcionalidad.
+
 ## Estructura del Proyecto
 
-- **src/pages/Tab1.tsx**: Página principal que muestra la lista de productos y el scroll infinito.
-- **src/pages/Cart.tsx**: Página del carrito de compras.
-- **src/components/ProductCard.tsx**: Componente que muestra la información de cada producto.
-- **src/store/useCartStore.ts**: Archivo que contiene la lógica para el manejo del estado global del carrito de compras utilizando Zustand.
-- **src/App.tsx**: Archivo principal de la aplicación que configura las rutas y la estructura de la aplicación.
+El proyecto está organizado en módulos dentro de la carpeta `src/features`, donde cada módulo agrupa toda la lógica, componentes, servicios y modelos relacionados con una funcionalidad específica. A continuación, se describe la estructura principal:
+
+- **src/features/products**: Módulo que contiene todo lo relacionado con los productos.
+  - **components**: Componentes de UI específicos para los productos, como `ProductCard` y `ProductList`.
+  - **services**: Servicios para realizar consultas a la API de productos, como `productsService.ts`.
+  - **models**: Modelos TypeScript que definen las interfaces y tipos utilizados en el módulo.
+  - **hooks**: Hooks personalizados relacionados con la lógica de productos.
+  - **tests**: Pruebas unitarias y de integración específicas del módulo de productos.
+
+- **src/features/cart**: Módulo que maneja la funcionalidad del carrito de compras.
+  - **components**: Componentes de UI específicos para el carrito, como la lista de productos en el carrito.
+ 
+  - **models**: Modelos TypeScript que definen las interfaces y tipos utilizados en el módulo.
+  - **tests**: Pruebas unitarias y de integración específicas del módulo del carrito.
+
+- **store**: Lógica para el manejo del estado global del carrito utilizando Zustand.
+- **src/App.tsx**: Archivo principal de la aplicación que configura las rutas y la estructura general de la aplicación.
+## API de Productos
+
+La aplicación consume la API de [Fake Store API](https://fakestoreapi.com/products) para obtener información sobre los productos. A continuación, se describen los endpoints utilizados:
+
+- **GET /products**: Obtiene la lista completa de productos.
+  - **Uso**: Este endpoint se utiliza para mostrar la lista inicial de productos en la página principal.
+  - **Ejemplo de Respuesta**:
+    ```json
+    [
+      {
+        "id": 1,
+        "title": "Producto A",
+        "price": 20.5,
+        "description": "Descripción del producto A",
+        "category": "electronics",
+        "image": "https://example.com/image.jpg"
+      },
+      ...
+    ]
+    ```
+
+- **GET /products/category/:category**: Obtiene los productos filtrados por categoría.
+  - **Uso**: Este endpoint se utiliza para filtrar los productos por categoría seleccionada por el usuario.
+  - **Ejemplo de Respuesta**:
+    ```json
+    [
+      {
+        "id": 2,
+        "title": "Producto B",
+        "price": 15.0,
+        "description": "Descripción del producto B",
+        "category": "jewelery",
+        "image": "https://example.com/image2.jpg"
+      },
+      ...
+    ]
+    ```
+
+- **GET /products/:id**: Obtiene los detalles de un producto específico.
+  - **Uso**: Este endpoint se utiliza para mostrar información detallada de un producto cuando el usuario selecciona uno.
+  - **Ejemplo de Respuesta**:
+    ```json
+    {
+      "id": 3,
+      "title": "Producto C",
+      "price": 30.0,
+      "description": "Descripción del producto C",
+      "category": "clothing",
+      "image": "https://example.com/image3.jpg"
+    }
+    ```
+
+El servicio de productos (`src/features/products/services/productsService.ts`) encapsula las llamadas a estos endpoints, proporcionando funciones reutilizables para interactuar con la API.
 
 ## Instalación
 
@@ -49,7 +123,7 @@ Se ha implementado un carrito de compras utilizando Zustand para el manejo del e
    ```
 4. Inicia la aplicación:
    ```bash
-   npm start
+   ionic serve
    ```
 
 ## Uso
@@ -75,22 +149,6 @@ Las pruebas están configuradas para ejecutarse con React Testing Library. Aseg�
 
 ### Descripción de las Pruebas
 
-#### Pruebas de Componentes
-
-- **ProductCard**: Verifica que el componente `ProductCard` renderiza correctamente la información del producto y maneja los eventos de clic para agregar al carrito.
-  - **Resultado Esperado**: El componente debe mostrar el nombre, precio e imagen del producto. Al hacer clic en el botón de agregar al carrito, el producto debe añadirse al carrito.
-  - **Prueba de funcionalidad del botón agregar**: Verifica que al hacer clic en el botón de agregar al carrito, se llama a la función `onBuyClick`.
-    - **Resultado Esperado**: La función `onBuyClick` debe ser llamada una vez al hacer clic en el botón.
-
-#### Pruebas de Páginas
-
-- **Tab1**: Verifica que la página `Tab1` carga y muestra la lista de productos correctamente, y que el scroll infinito funciona como se espera.
-  - **Resultado Esperado**: La página debe mostrar una lista de productos al cargar. Al hacer scroll, se deben cargar más productos y añadirse a la lista existente.
-
-#### Pruebas de Listas
-
-- **ProductList**: Verifica que el componente `ProductList` renderiza correctamente una lista de productos y maneja la simulación de scroll infinito.
-  - **Resultado Esperado**: El componente debe mostrar una lista de productos en un contenedor con el rol `region`. La función `infinitySimulation` debe ser llamada correctamente para cargar más productos.
 
 
 

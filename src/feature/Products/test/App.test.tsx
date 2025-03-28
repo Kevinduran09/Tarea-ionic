@@ -3,11 +3,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import App from '../../../App';
 
 
-import Tab1 from '../../../pages/Tab1';
+
 import { ProductCard, ProductInterfaceProps } from '../components/ProductCard';
 import { vi, Mock } from 'vitest';
 import { ProductList } from '../components/ProductList';
 import { useCartStore } from '../../../store/useCartStore';
+import ProductsPage from '../page/ProductsPage';
 vi.mock('../../../store/useCartStore', () => ({
   useCartStore: vi.fn(() => ({
     addCart: vi.fn(),
@@ -21,7 +22,7 @@ test('renders without crashing', () => {
 });
 
 test("Prueba de renderizado de la vista de productos", () => {
-  const { baseElement } = render(<Tab1 />)
+  const { baseElement } = render(<ProductsPage />)
 
   const title = screen.getByTestId('title-products-view')
   expect(title).toBeInTheDocument()
