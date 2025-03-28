@@ -25,12 +25,9 @@ Se ha implementado un scroll infinito para la carga progresiva de productos. La 
 
 Se ha implementado un carrito de compras utilizando Zustand para el manejo del estado global. Los usuarios pueden agregar productos al carrito y ver la cantidad de productos en el carrito en la barra de navegación. También pueden acceder a una página dedicada al carrito de compras para ver los productos añadidos y eliminarlos si lo desean.
 
-
-
 ### Arquitectura Modular
 
 El proyecto utiliza una arquitectura modular para organizar el código en diferentes carpetas dentro del directorio `src/features`. Cada carpeta representa una funcionalidad o módulo independiente de la aplicación. Esto permite mantener el código limpio, reutilizable y fácil de escalar. A continuación, se describen brevemente los módulos principales:
-
 
 Cada módulo tiene su propia estructura interna que incluye componentes, servicios, hooks y pruebas específicas para esa funcionalidad.
 
@@ -47,12 +44,12 @@ El proyecto está organizado en módulos dentro de la carpeta `src/features`, do
 
 - **src/features/cart**: Módulo que maneja la funcionalidad del carrito de compras.
   - **components**: Componentes de UI específicos para el carrito, como la lista de productos en el carrito.
- 
   - **models**: Modelos TypeScript que definen las interfaces y tipos utilizados en el módulo.
   - **tests**: Pruebas unitarias y de integración específicas del módulo del carrito.
 
 - **store**: Lógica para el manejo del estado global del carrito utilizando Zustand.
 - **src/App.tsx**: Archivo principal de la aplicación que configura las rutas y la estructura general de la aplicación.
+
 ## API de Productos
 
 La aplicación consume la API de [Fake Store API](https://fakestoreapi.com/products) para obtener información sobre los productos. A continuación, se describen los endpoints utilizados:
@@ -148,6 +145,24 @@ Para ejecutar las pruebas, sigue estos pasos:
 Las pruebas están configuradas para ejecutarse con React Testing Library. Asegúrate de revisar el archivo de prueba `App.test.tsx` para más detalles sobre las pruebas implementadas.
 
 ### Descripción de las Pruebas
+
+#### Módulo de Productos
+
+- **Prueba de renderizado de la vista de productos**:
+  - **Descripción**: Verifica que la página de productos (`ProductsPage`) se renderiza correctamente.
+  - **Resultado Esperado**: El título de la vista debe estar presente en el documento, y el componente base debe renderizarse sin errores.
+
+- **Pruebas de `ProductCard`**:
+  - **Renderizado del componente**:
+    - **Descripción**: Verifica que el componente `ProductCard` muestra correctamente la información del producto.
+    - **Resultado Esperado**: El título, categoría y botón de agregar al carrito deben estar presentes en el documento.
+  - **Funcionalidad del botón agregar**:
+    - **Descripción**: Verifica que al hacer clic en el botón de agregar al carrito, se llama a la función `addCart` con los datos correctos del producto.
+    - **Resultado Esperado**: La función `addCart` debe ser llamada con un objeto que contenga las propiedades del producto.
+
+- **Prueba de renderizado de la lista de productos (`ProductList`)**:
+  - **Descripción**: Verifica que el componente `ProductList` renderiza correctamente una lista de productos.
+  - **Resultado Esperado**: El contenedor principal debe estar presente en el documento, y los productos deben ser renderizados correctamente dentro de él.
 
 
 
