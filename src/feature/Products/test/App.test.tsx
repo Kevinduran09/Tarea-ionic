@@ -9,6 +9,7 @@ import { vi, Mock } from 'vitest';
 import { ProductList } from '../components/ProductList';
 import { useCartStore } from '../../../store/useCartStore';
 import ProductsPage from '../page/ProductsPage';
+
 vi.mock('../../../store/useCartStore', () => ({
   useCartStore: vi.fn(() => ({
     addCart: vi.fn(),

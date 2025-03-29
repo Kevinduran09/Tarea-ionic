@@ -1,7 +1,6 @@
 import { IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 import React, { useEffect, useState } from 'react'
-import { fetchCategories, fetchProductByCategory, fetchProducts } from '../service/ProductsApi';
-import { ProductInterface } from '../domain/models';
+import { fetchCategories } from '../service/ProductsApi';
 
 
 

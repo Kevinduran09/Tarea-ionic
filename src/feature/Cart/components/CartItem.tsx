@@ -29,7 +29,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item, index, removeCart }) =
                     </div>
                 </div>
                 <div className='flex flex-col justify-end items-center w-1/4'>
-                    <IonButton color="danger" onClick={() => removeCart(index)}>
+                    <IonButton data-testid='remove-cart-button' color="danger" onClick={() => removeCart(index)}>
                         <IonIcon className='mr-1' slot="icon-only" icon={trashOutline} />
                         Eliminar
                     </IonButton>

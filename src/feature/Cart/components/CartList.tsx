@@ -8,7 +8,7 @@ export const CartList = () => {
     return (
         <>
             {cart.length > 0 ? (
-                <IonList>
+                <IonList role='region'>
                     {cart.map((item, index) => (
                         <CartItem key={index} item={item} index={index} removeCart={removeCart} />
                     ))}
